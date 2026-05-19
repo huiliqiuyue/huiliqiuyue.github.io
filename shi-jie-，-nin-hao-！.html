@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/263593511?v=4&size=64"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="Helloworld！。">
+<meta property="og:title" content="世界，您好！">
+<meta property="og:description" content="Helloworld！。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://huiliqiuyue.github.io/post/shi-jie-%EF%BC%8C-nin-hao-%EF%BC%81.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/263593511?v=4&size=64">
+<title>世界，您好！</title>
+
+<style>
+/* ===== CSS Custom Properties ===== */
+:root {
+  --bg-start: #f0f4f8;
+  --bg-end: #d9e2ec;
+  --card-bg: #ffffff;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --text-primary: #24292f;
+  --text-secondary: #57606a;
+  --accent: #0969da;
+  --accent-hover: #0550b3;
+  --border-color: #d0d7de;
+  --divider-color: #e8ecf0;
+  --header-border: #0969da;
+  --tag-bg: #f3f4f6;
+  --progress-bg: #e8ecf0;
+  --code-bg: #f6f8fa;
+  --transition-speed: 0.25s;
+}
+
+[data-color-mode="dark"] {
+  --bg-start: #0d1117;
+  --bg-end: #161b22;
+  --card-bg: #1c2128;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --border-color: #30363d;
+  --divider-color: #21262d;
+  --tag-bg: #30363d;
+  --progress-bg: #30363d;
+  --code-bg: #161b22;
+}
+
+/* ===== Reading Progress Bar ===== */
+#readingProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0969da, #0550b3);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ===== Base & Typography ===== */
+* { box-sizing: border-box; }
+
+body {
+  min-width: 200px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.7;
+  background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  min-height: 100vh;
+}
+
+/* ===== Header ===== */
+#header {
+  display: flex;
+  align-items: center;
+  padding: 20px 28px;
+  margin-bottom: 28px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  border-top: 3px solid var(--header-border);
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.postTitle {
+  margin: auto 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.title-right {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 6px;
+  align-items: center;
+}
+
+.title-right .btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  transition: all var(--transition-speed);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.title-right .btn:hover {
+  background: var(--tag-bg);
+  color: var(--accent);
+}
+
+.title-right svg { width: 18px; height: 18px; }
+
+/* ===== Content Area ===== */
+#content {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Post Body ===== */
+#postBody {
+  background: var(--card-bg);
+  padding: 36px 40px;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  border-bottom: none !important;
+  padding-bottom: 36px !important;
+  font-size: 16px;
+  line-height: 1.8;
+  transition: background-color var(--transition-speed);
+}
+
+#postBody p {
+  margin-bottom: 16px;
+}
+
+#postBody h1, #postBody h2, #postBody h3 {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+#postBody h1 { font-size: 2em; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+#postBody h2 { font-size: 1.5em; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+#postBody h3 { font-size: 1.25em; }
+
+#postBody code {
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+#postBody pre {
+  background: var(--code-bg);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+#postBody pre code {
+  background: none;
+  padding: 0;
+}
+
+#postBody blockquote {
+  border-left: 4px solid var(--accent);
+  margin: 16px 0;
+  padding: 8px 16px;
+  color: var(--text-secondary);
+  background: var(--code-bg);
+  border-radius: 0 8px 8px 0;
+}
+
+#postBody a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+#postBody a:hover {
+  text-decoration: underline;
+}
+
+#postBody img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+#postBody hr {
+  height: 1px;
+  background: var(--border-color);
+  border: none;
+  margin: 32px 0;
+}
+
+#postBody ul, #postBody ol {
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+#postBody li {
+  margin-bottom: 4px;
+}
+
+/* Post meta */
+#content > div:last-of-type {
+  text-align: right;
+  padding: 8px 4px;
+}
+
+/* ===== Comment Button ===== */
+#cmButton {
+  height: 48px;
+  margin-top: 32px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  box-shadow: 0 2px 8px rgba(9,105,218,0.25);
+}
+
+#cmButton:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 14px rgba(9,105,218,0.35);
+  transform: translateY(-1px);
+}
+
+#cmButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#comments {
+  margin-top: 48px;
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: background-color var(--transition-speed);
+}
+
+/* ===== Footer ===== */
+#footer {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 24px 0 8px;
+  border-top: 1px solid var(--divider-color);
+}
+
+#footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+
+#footer a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+#footer1 { margin-bottom: 4px; }
+#footer2 { font-size: 13px; }
+
+.g-emoji { font-size: 24px; }
+
+/* ===== Back to Top Button ===== */
+#backToTop {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(9,105,218,0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition-speed);
+  z-index: 1000;
+}
+
+#backToTop.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#backToTop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(9,105,218,0.45);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  body { padding: 12px 10px 32px; }
+
+  #header {
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+
+  .postTitle { font-size: 22px; }
+
+  #postBody {
+    padding: 20px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  #cmButton { border-radius: 10px; }
+  #comments { padding: 16px; border-radius: 12px; }
+
+  #backToTop {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
+
+[data-color-mode="dark"] ::-webkit-scrollbar-thumb { background: #484f58; }
+[data-color-mode="dark"] ::-webkit-scrollbar-thumb:hover { background: #6e7681; }
+</style>
+
+<body>
+    <div id="readingProgress"></div>
+    <div id="header">
+<h1 class="postTitle">世界，您好！</h1>
+<div class="title-right">
+    <a href="https://huiliqiuyue.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+    <a href="https://github.com/huiliqiuyue/huiliqiuyue.github.io/issues/1" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>Helloworld！</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+    <div id="footer"><div id="footer1">Copyright &copy; <span id="copyrightYear"></span> <a href="https://huiliqiuyue.github.io">qiuyuehuili's Blog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" &bull; ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+// Reading progress bar
+window.addEventListener('scroll', function(){
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    document.getElementById('readingProgress').style.width = scrolled + '%';
+});
+
+// Back to top button
+window.addEventListener('scroll', function(){
+    var btn = document.getElementById('backToTop');
+    if(window.scrollY > 400){ btn.classList.add('show'); }
+    else { btn.classList.remove('show'); }
+});
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.disabled=true;
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","huiliqiuyue/huiliqiuyue.github.io");
+    script.setAttribute("issue-term","title");
+
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+</script>
+
+
+</html>
