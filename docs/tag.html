@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
-    
+
     <link rel="icon" href="https://avatars.githubusercontent.com/u/263593511?v=4&size=64"><script>
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
@@ -13,47 +13,422 @@
 <meta name="description" content="qiuyuehuili's Blog search page">
 <title>qiuyuehuili's Blog - Tag</title>
 
-</head>
 <style>
-body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
-#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
-#footer {margin-top:64px; text-align: center;font-size: small;}
-
-</style>
-
-<style>
-.tagTitle{margin:auto 0;font-size:40px;font-weight:bold;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.title-right{display:flex;margin:auto 0 0 auto;}
-.title-right .circle{padding: 14px 16px;margin-right:8px;}
-
-.subnav-search{width:222px;margin-top:8px;margin-right:8px;}
-.subnav-search-input{width:160px;border-top-right-radius:0px;border-bottom-right-radius:0px;}
-.subnav-search button{padding:5px 8px;border-top-left-radius:0px;border-bottom-left-radius:0px;}
-
-.SideNav-icon{margin-right:16px}
-.Label{color: #fff;margin-left:4px;}
-#taglabel .Label {margin-bottom:8px;}
-.Counter{color:#fff;background-color:rgba(234, 238, 242, 0.5)}
-
-.genTime{float: right;}
-.d-flex{min-width:0;}
-.listTitle{overflow:hidden;white-space:nowrap;text-overflow: ellipsis;max-width: 100%;}
-.listLabels{white-space:nowrap;}
-
-@media (max-width: 600px) {
-    body { padding: 8px;}
-    .tagTitle{display:none;}
-    .LabelTime{display:none;}
+/* ===== CSS Custom Properties ===== */
+:root {
+  --bg-start: #f0f4f8;
+  --bg-end: #d9e2ec;
+  --card-bg: #ffffff;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --card-hover-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.06);
+  --text-primary: #24292f;
+  --text-secondary: #57606a;
+  --accent: #0969da;
+  --accent-hover: #0550b3;
+  --border-color: #d0d7de;
+  --divider-color: #e8ecf0;
+  --header-border: #0969da;
+  --tag-bg: #f3f4f6;
+  --input-bg: #ffffff;
+  --transition-speed: 0.25s;
 }
-</style>
 
+[data-color-mode="dark"] {
+  --bg-start: #0d1117;
+  --bg-end: #161b22;
+  --card-bg: #1c2128;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --card-hover-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.3);
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --border-color: #30363d;
+  --divider-color: #21262d;
+  --tag-bg: #30363d;
+  --input-bg: #0d1117;
+}
+
+/* ===== Base & Typography ===== */
+* { box-sizing: border-box; }
+
+body {
+  min-width: 200px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.7;
+  background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  min-height: 100vh;
+}
+
+/* ===== Header ===== */
+#header {
+  display: flex;
+  align-items: center;
+  padding: 20px 28px;
+  margin-bottom: 28px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  border-top: 3px solid var(--header-border);
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.tagTitle {
+  margin: auto 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.title-right {
+  display: flex;
+  margin: auto 0 0 auto;
+  align-items: center;
+  gap: 6px;
+}
+
+.title-right .btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  transition: all var(--transition-speed);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.title-right .btn:hover {
+  background: var(--tag-bg);
+  color: var(--accent);
+}
+
+.title-right svg { width: 18px; height: 18px; }
+
+/* ===== Search Box ===== */
+.subnav-search {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.subnav-search-input {
+  width: 180px;
+  height: 36px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: all var(--transition-speed);
+}
+
+.subnav-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(9,105,218,0.15);
+}
+
+.subnav-search button {
+  height: 36px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.subnav-search button:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.subnav-search-icon {
+  display: none;
+}
+
+/* ===== Content Area ===== */
+#content {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Tag Labels ===== */
+#taglabel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: background-color var(--transition-speed);
+}
+
+#taglabel .Label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  color: #fff !important;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-speed);
+}
+
+#taglabel .Label:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.Counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+/* ===== Post List Cards ===== */
+.SideNav {
+  background: transparent;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.SideNav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  text-decoration: none;
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  transition: all var(--transition-speed);
+  gap: 16px;
+}
+
+.SideNav-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--accent);
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.SideNav-icon {
+  margin-right: 12px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.listTitle {
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.listLabels {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.listLabels .Label {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  color: #fff;
+  transition: transform var(--transition-speed);
+}
+
+.listLabels .Label:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Not Found ===== */
+.notFind {
+  display: none;
+  font-size: 20px;
+  text-align: center;
+  margin: 32px 8px;
+  color: var(--text-secondary);
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 12px;
+}
+
+/* ===== Footer ===== */
+#footer {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 24px 0 8px;
+  border-top: 1px solid var(--divider-color);
+}
+
+#footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+
+#footer a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+#footer1 { margin-bottom: 4px; }
+#footer2 { font-size: 13px; }
+
+/* ===== Back to Top Button ===== */
+#backToTop {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(9,105,218,0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition-speed);
+  z-index: 1000;
+}
+
+#backToTop.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#backToTop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(9,105,218,0.45);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  body { padding: 12px 10px 32px; }
+
+  #header {
+    padding: 14px 16px;
+    border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tagTitle { font-size: 22px; }
+  .LabelTime { display: none; }
+
+  .subnav-search { margin-top: 0; }
+  .subnav-search-input { width: 120px; }
+
+  #taglabel { padding: 12px 14px; }
+
+  .SideNav { gap: 8px; }
+
+  .SideNav-item {
+    padding: 14px 16px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+  }
+
+  .listLabels .Label { padding: 2px 8px; font-size: 11px; }
+
+  #backToTop {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
+
+[data-color-mode="dark"] ::-webkit-scrollbar-thumb { background: #484f58; }
+[data-color-mode="dark"] ::-webkit-scrollbar-thumb:hover { background: #6e7681; }
+</style>
 
 <body>
     <div id="header">
 <span class="tagTitle"><span>Loading</span><span class="AnimatedEllipsis"></span></span>
 <div class="title-right">
     <div class="subnav-search">
-        <input type="search" class="form-control subnav-search-input float-left" aria-label="Search site" value="" style="height:32px;">
+        <input type="search" class="form-control subnav-search-input float-left" aria-label="Search site" value="" style="height:36px;">
         <button class="btn float-left" type="submit" onclick="javascript:searchShow()">搜索</button>
         <svg class="subnav-search-icon octicon octicon-search" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
             <path id="searchSVG" fill-rule="evenodd"></path>
@@ -76,7 +451,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <nav class="SideNav"></nav>
 <div class="notFind" style="display:none;font-size:24px;margin:8px;">Not Find</div>
 </div>
-    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://huiliqiuyue.github.io">qiuyuehuili's Blog</a></div>
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+    <div id="footer"><div id="footer1">Copyright &copy; <span id="copyrightYear"></span> <a href="https://huiliqiuyue.github.io">qiuyuehuili's Blog</a></div>
 <div id="footer2">
     <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
 </div>
@@ -89,7 +465,7 @@ if(""!=""){
     var startSite=new Date("");
     var diff=now.getTime()-startSite.getTime();
     var diffDay=Math.floor(diff/(1000*60*60*24));
-    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" • ";
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" &bull; ";
 }
 </script></div>
 </body>
@@ -128,6 +504,13 @@ console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 
 <script>
 document.getElementById("pathHome").setAttribute("d",IconList["home"]);
 document.getElementById("searchSVG").setAttribute("d",IconList["search"]);
+
+// Back to top button
+window.addEventListener('scroll', function(){
+    var btn = document.getElementById('backToTop');
+    if(window.scrollY > 400){ btn.classList.add('show'); }
+    else { btn.classList.remove('show'); }
+});
 
 tagList=[];
 labelsCount={};
@@ -188,7 +571,7 @@ function showList(labelsCount){
             center.setAttribute("class","d-flex flex-items-center");
 
             svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-            path=document.createElementNS("http://www.w3.org/2000/svg","path"); 
+            path=document.createElementNS("http://www.w3.org/2000/svg","path");
             span=document.createElement("span");
             svg.setAttributeNS(null,"class","SideNav-icon octicon");
             svg.setAttributeNS(null,"style","width:16px;height:16px");
@@ -203,7 +586,7 @@ function showList(labelsCount){
 
             let listLabels=document.createElement("div");
             listLabels.setAttribute("class","listLabels");
-            
+
             for(label of jsonData[i]['labels']){
                 let LabelName=document.createElement("span");
                 LabelName.setAttribute("class","Label LabelName");
